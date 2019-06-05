@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Задание 1</title>
+</head>
+<body>
+    <label for="firstNumber">Первое число:</label>
+    <input type="text" name="fisrtNumber" id="firstNumber" value=0.1>
+    <br>
+    <br>
+    <label for="firstNumber">Второе число:</label>
+    <input type="text" name="secondNumber" id="secondNumber" value=0.2>
+    <br>
+    <br>
+    <input type="button" name="btnAddNumber" value="Сложить" onclick="makeAdding();">
+    <script>
+        const makeAdding = () =>{
+            //Получение значения из перового поля ввода
+            let firstNumber = parseFloat(document.querySelector('#firstNumber').value);
+            //Проверка того, что полученное значение число. Если это не число, то присваивается значение по-умолчанию
+            if (isNumeric(firstNumber)){
+            } else {
+                document.querySelector('#firstNumber').value = 0.1;
+                firstNumber = 0.1;
+            }
+            //Получение значения из второго поля ввода
+            let secondNumber = parseFloat(document.querySelector('#secondNumber').value);
+            //Проверка того, что полученное значение число. Если это не число, то присваивается значение по-умолчанию
+            if (isNumeric(secondNumber)){
+            } else {
+                document.querySelector('#secondNumber').value = 0.2;
+                secondNumber = 0.2;
+            }
+            //Количество цифр в дробной части для каждого введеного числа
+            let digitAfterDotInFirstNumber = digitAfterDotInNumber(firstNumber);
+            let digitAfterDotInSecondNumber = digitAfterDotInNumber(secondNumber);
+
+            //Находим максимальное количество цифр после запятой во введенных числах
+            let toFixedPosition = (digitAfterDotInFirstNumber > digitAfterDotInSecondNumber)?digitAfterDotInFirstNumber:digitAfterDotInSecondNumber;
+
+            
+            alert(`Результат: \n\n ${(firstNumber+secondNumber).toFixed(toFixedPosition)}`);
+
+            //Функция проверки на число
+            function isNumeric(n) {
+                return !isNaN(parseFloat(n)) && isFinite(n);
+            }
+
+            //Функция возвращает количество цифр после запятой
+            function digitAfterDotInNumber(number){
+                let digitAfterDot = String(number).length - (String(number).indexOf(".")+1 || String(number).indexOf(",")+1);
+                return (digitAfterDot > String(number).length || digitAfterDot===String(number).length)?0:digitAfterDot;
+            }
+        }
+
+    </script>
+</body>
+</html>
